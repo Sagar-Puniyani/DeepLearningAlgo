@@ -15,9 +15,16 @@ class KMeans:
             # assign Cluster 
             cluster_group = self.assign_cluster(Dataset)
             print(cluster_group)
+            old_centroid  = self.centroid
             # move centroid (calculation of the distances )
-        
+            self.Change_Cluster(Dataset , cluster_group )
+            print(self.centroid)
+
             # check finish   
+            if (old_centroid == self.centroid).all():
+                break
+        
+        return cluster_group
 
     def assign_cluster(self , Dataset ) :
         cluster_group = []
@@ -27,8 +34,6 @@ class KMeans:
             distance = []
             for centroid in self.centroid:
                 distance.append(np.sqrt(np.dot(row-centroid , row-centroid)))
-            
-
             Min_Distance = min(distance)
             Min_Index = distance.index(Min_Distance)
             cluster_group.append(Min_Index)
@@ -37,7 +42,15 @@ class KMeans:
         return np.array(cluster_group)
     
     def Change_Cluster(self , Dataset , cluster_group ):
+        centroids = []
+        Cluster_Group = cluster_group
         Clusters = np.unique(cluster_group)
 
+
         for i in  Clusters:
-            pass
+            cluster_indexes = np.where(Cluster_Group == i )
+            cluster_Data = Dataset[cluster_indexes]
+            cluster_mean = np.mean(cluster_Data , axis=0 )
+            centroids.append(cluster_mean)
+        self.centroid = np.array(centroids)
+    
