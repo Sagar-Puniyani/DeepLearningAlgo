@@ -9,16 +9,13 @@ class KMeans:
     def fit_predict(self , Dataset ):
         random_point = random.sample(range(0 , Dataset.shape[0]) , self.n_cluster)
         self.centroid = Dataset[random_point]
-        print( self.centroid )
 
         for _ in range(0 , self.max_iter):
             # assign Cluster 
             cluster_group = self.assign_cluster(Dataset)
-            print(cluster_group)
             old_centroid  = self.centroid
             # move centroid (calculation of the distances )
             self.Change_Cluster(Dataset , cluster_group )
-            print(self.centroid)
 
             # check finish   
             if (old_centroid == self.centroid).all():
