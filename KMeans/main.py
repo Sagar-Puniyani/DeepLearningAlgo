@@ -11,7 +11,6 @@ X,y = make_blobs(n_samples=100,
                 n_features=3,
                 random_state=2)
 
-print( "X = " , X)
 
 km = KMeans(n_cluster = 2 , max_iter = 100 )
 km.fit_predict(X)

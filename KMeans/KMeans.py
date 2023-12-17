@@ -11,24 +11,25 @@ class KMeans:
         self.centroid = Dataset[random_point]
         print( self.centroid )
 
-        for i in range(self.max_iter):
+        for i in range(0 , self.max_iter):
             # assign Cluster 
             cluster_group = self.assign_cluster(Dataset)
 
-            # move centroid 
+            # move centroid (calculation of the distances )
             # check finish   
 
     def assign_cluster(self , Dataset ) :
-        print("Enter")
         cluster_group = []
-        distances = []
+        distance = []
 
         for row in Dataset:
             distance = []
             for centroid in self.centroid:
                 distance.append(np.sqrt(np.dot(row-centroid , row-centroid)))
-                distances.append(distance)
-        print("Distances")
-        print(distances)
 
-        return distances
+            if distance[0] <= distance[1]:
+                cluster_group.append(0)
+            else:
+                cluster_group.append(1)
+
+        return cluster_group
